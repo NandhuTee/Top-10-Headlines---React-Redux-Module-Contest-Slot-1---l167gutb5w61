@@ -10,7 +10,7 @@ const App = () => {
     const fetchData = async () => {
       setLoading(true); // Set loading to true before fetching data
       try {
-        const response = await fetch(`https://gnews.io/api/v4/top-headlines?category=${category}&apikey=[API_KEY]&max=10&lang=en`);
+        const response = await fetch(`https://gnews.io/api/v4/top-headlines?category=${category}&token=[API_KEY]&max=10&lang=en`);
         const data = await response.json();
         setNewsData(data.articles);
         setLoading(false); // Set loading to false after data is fetched
@@ -41,12 +41,12 @@ const App = () => {
         <ol>
           {newsData.map((news, index) => (
             <li key={index}>
-              <img className='news-img' src={news.image} alt=""/>
+              {news.image && <img className='news-img' src={news.image} alt=""/>}
               <section className='new-title-content-author'>
                 <h3 className='news-title'>{news.title}</h3>
                 <section className='new-content-author'>
                   <p className='news-description'>{news.description}</p>
-                  <p className='news-source'><strong>Source:</strong> {news.source.name}</p>
+                  <p className='news-source'><strong>Source:</strong> {news.source?.name}</p>
                 </section>
               </section>
             </li>
